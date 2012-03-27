@@ -92,7 +92,7 @@ class Analytics  {
     $var_cookie  = rand(10000000, 99999999);     //random cookie number
     $var_random  = rand(1000000000, 2147483647); //number under 2147483647
     $var_today   = time();                       //today
-    $var_referer = 'http://phoenix.learningstation.com/index.php'; //referer url
+    $var_referer = $_SERVER['SCRIPT_URI']; //referer url
     $var_utmp    = 'index.php';
     $var_uservar = '';
     
