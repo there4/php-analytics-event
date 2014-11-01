@@ -1,35 +1,37 @@
 <?php
+namespace There4\Analytics;
+
 /**
  * Google Analytics Event Tracking
  *
  * This library provides a method to track a server side event to
  * Google Analytics
- * 
+ *
  * @author Craig Davis <craig@there4development.com>
  * @created 07/15/2010
  */
-class Analytics  {
-  
+class AnalyticsEvent
+{
   /**
    * @var string Google Analytics code
    */
   private $_code;
-  
+
   /**
    * @var string Domain name we are requesting from
    */
   private $_domain;
-  
+
   /**
    * @var string User Agent string for this request from CURL
    */
   private $_useragent = 'PHPAnalyticsAgent/0.1 (http://there4development.com/)';
-  
+
   /**
    * @var string cookie name
    */
   private $_cookie = "phpanalytics";
-  
+
   /**
    * @var bool verbose output
    */
@@ -47,22 +49,21 @@ class Analytics  {
 
   /**
    * Setup Analytics
-   * 
+   *
    * @param string $code   Google Analytics key (default: const GOOG_UA)
    * @param string $domain HTTP_HOST (default: $_SERVER['HTTP_HOST'])
    *
    * @return void
    */
-  function __construct($code = '', $domain = '') {
+  public function __construct($code = '', $domain = '')
+  {
     $this->_code = !empty($code) ? $code : GOOG_UA;
-    
+
     if (!empty($domain)) {
       $this->_domain = $domain;
-    }
-    elseif (array_key_exists('HTTP_HOST', $_SERVER)) {
+    } elseif (array_key_exists('HTTP_HOST', $_SERVER)) {
       $this->_domain = $_SERVER['HTTP_HOST'];
-    }
-    else {
+    } else {
       $this->_domain = 'No Domain Set';
     }
   }
@@ -85,7 +86,8 @@ class Analytics  {
    *
    * @return bool success
    */
-  function trackEvent($object, $action, $label = '', $value = 1) {
+  public function trackEvent($object, $action, $label = '', $value = 1)
+  {
     $var_utmac   = $this->_code;
     $var_utmhn   = $this->_domain;
     $var_utmn    = rand(1000000000, 9999999999); //random request number
@@ -95,7 +97,7 @@ class Analytics  {
     $var_referer = $_SERVER['SCRIPT_URI']; //referer url
     $var_utmp    = 'index.php';
     $var_uservar = '';
-    
+
     $urchin_params = ''
       .'?utmwv=1'               // Tracking code version
       .'&utmn='.$var_utmn       // Prevent caching random number
@@ -111,18 +113,18 @@ class Analytics  {
       .'&utmac=' . $var_utmac   // Account code
       .'&utmt=event'            // Type of request
        // utme is an extensible parameter, used for the event data here
-      ."&utme=" . rawurlencode("5($object*$action*$label)($value):") 
+      ."&utme=" . rawurlencode("5($object*$action*$label)($value):")
       .'&utmcc=__utma%3D' . $var_cookie . '.' . $var_random . '.' . $var_today
           . '.' . $var_today . '.' . $var_today . '.2%3B%2B__utmb%3D'
-          . $var_cookie . '%3B%2B__utmc%3D' . $var_cookie . '%3B%2B__utmz%3D' 
-          . $var_cookie . '.' . $var_today 
+          . $var_cookie . '%3B%2B__utmc%3D' . $var_cookie . '%3B%2B__utmz%3D'
+          . $var_cookie . '.' . $var_today
           . '.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)'
           . '%7Cutmcmd%3D(none)%3B%2B__utmv%3D'
           . $var_cookie . '.' . $var_uservar . '%3B'
       ; // Cookie values are in this utmcc
 
     $url = $this->_urchin_url . $urchin_params;
-    
+
     $ch = curl_init();
     curl_setopt_array(
         $ch,
@@ -137,12 +139,11 @@ class Analytics  {
     );
     $output = curl_exec($ch);
     curl_close($ch);
-    
+
     $is_gif = ('GIF89a' == substr($output, 0, 6));
-    
+
     return $is_gif;
   }
-
 }
 
 /* End of file class.Analytics.php */
