@@ -8,6 +8,7 @@
             "email": "craig@there4development.com"
         }
     ],
+    "keywords": ["analytics", "Google Analytics", "events"],
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
