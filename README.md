@@ -11,6 +11,6 @@ logging and event tracking.
 use There4\Analytics\AnalyticsEvent;
 
 // Record the download event in Analytics
-$events = new AnalyticsEvent("UAxxxxxxx", "example.com");
-$events->trackEvent("resources", "download", "cli-latest");
+$events = new AnalyticsEvent('UAxxxxxxx', 'example.com');
+$events->trackEvent('resources', 'download', 'cli-latest');
 ```
