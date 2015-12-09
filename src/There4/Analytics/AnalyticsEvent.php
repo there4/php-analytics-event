@@ -93,7 +93,7 @@ class AnalyticsEvent
         $var_cookie  = rand(10000000, 99999999);     //random cookie number
         $var_random  = rand(1000000000, 2147483647); //number under 2147483647
         $var_today   = time();                       //today
-        $var_referer = $_SERVER['SCRIPT_URI']; //referer url
+        $var_referer = $this->getCurrentUrl(); //referer url
         $var_utmp    = 'index.php';
         $var_uservar = '';
 
@@ -142,6 +142,19 @@ class AnalyticsEvent
         $is_gif = ('GIF89a' == substr($output, 0, 6));
 
         return $is_gif;
+    }
+    
+    /**
+     * Get the current Url
+     * 
+     * @return string current url
+     */
+    public function getCurrentUrl() {
+        $url  = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
+        $url .= '://' . $_SERVER['SERVER_NAME'];
+        $url .= in_array( $_SERVER['SERVER_PORT'], array('80', '443') ) ? '' : ':' . $_SERVER['SERVER_PORT'];
+        $url .= $_SERVER['REQUEST_URI'];
+        return $url;
     }
 }
 
