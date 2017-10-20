@@ -52,8 +52,6 @@ class AnalyticsEvent
     *
     * @param string $code   Google Analytics key (default: const GOOG_UA)
     * @param string $domain HTTP_HOST (default: $_SERVER['HTTP_HOST'])
-    *
-    * @return void
     */
     public function __construct($code = '', $domain = '')
     {
@@ -80,7 +78,7 @@ class AnalyticsEvent
     *                       interaction for the web object.
     * @param string $label  An optional string to provide additional dimensions
     *                       to the event data.
-    * @param string $value  An integer that you can use to provide numerical
+    * @param integer $value An integer that you can use to provide numerical
     *                       data about the user event.
     *
     * @return bool success
@@ -143,10 +141,10 @@ class AnalyticsEvent
 
         return $is_gif;
     }
-    
+
     /**
      * Get the current Url
-     * 
+     *
      * @return string current url
      */
     public function getCurrentUrl() {
