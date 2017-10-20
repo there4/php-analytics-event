@@ -10,10 +10,18 @@
     ],
     "keywords": ["analytics", "Google Analytics", "events"],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+    },
     "autoload": {
-        "psr-0": {
-            "There4": "src/"
+        "psr-4": {
+            "There4\\Analytics\\": "src/",
+            "Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5@dev"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }

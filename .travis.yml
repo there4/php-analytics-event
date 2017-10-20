@@ -1,0 +1,38 @@
+language: php
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+
+  allow_failures:
+    - php: 7.2
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+install:
+  # show versions and env information
+  - php --version
+  - composer --version
+
+  # disable xdebug for performance reasons
+  - phpenv config-rm xdebug.ini || echo "xdebug is not installed"
+
+  # Install out dependencies
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction --dev
+
+before_script:
+  # Enable code coverage
+  - |
+    if [ $TASK_TESTS_COVERAGE == 1 ]; then
+      PHPUNIT_FLAGS="--coverage-clover=$TRAVIS_BUILD_DIR/build/logs/clover.xml"
+    fi
+
+script:
+  - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
