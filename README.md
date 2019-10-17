@@ -21,3 +21,7 @@ use There4\Analytics\AnalyticsEvent;
 $events = new AnalyticsEvent('UAxxxxxxx', 'example.com');
 $events->trackEvent('resources', 'download', 'cli-latest');
 ```
+
+## Related Projects
+
+The [Google Analytics Measurement Protocol library for PHP](https://github.com/theiconic/php-ga-measurement-protocol) project is a much larger implementation of the [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1). If you need more than a simple tracking event you should check it out.
