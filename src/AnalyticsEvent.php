@@ -87,11 +87,11 @@ class AnalyticsEvent
     {
         $var_utmac   = $this->_code;
         $var_utmhn   = $this->_domain;
-        $var_utmn    = rand(1000000000, 9999999999); //random request number
-        $var_cookie  = rand(10000000, 99999999);     //random cookie number
-        $var_random  = rand(1000000000, 2147483647); //number under 2147483647
-        $var_today   = time();                       //today
-        $var_referer = $this->getCurrentUrl(); //referer url
+        $var_utmn    = rand(1000000000, PHP_INT_MAX); //random request number
+        $var_cookie  = rand(10000000, PHP_INT_MAX);   //random cookie number
+        $var_random  = rand(1000000000, 2147483647);  //number under 2147483647
+        $var_today   = time();                        //today
+        $var_referer = $this->getCurrentUrl();        //referer url
         $var_utmp    = 'index.php';
         $var_uservar = '';
 
